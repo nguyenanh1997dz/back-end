@@ -62,29 +62,22 @@ const getAllProduct = asyncHandler(async (req, res) => {
     excludeFields.forEach((el) => delete queryObj[el]);
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-
     let query = Product.find(JSON.parse(queryStr));
-
     // Sorting
-
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
       query = query.sort(sortBy);
     } else {
       query = query.sort("-createdAt");
     }
-
     // limiting the fields
-
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
       query = query.select(fields);
     } else {
       query = query.select("-__v");
     }
-
     // pagination
-
     const page = req.query.page;
     const limit = req.query.limit;
     const skip = (page - 1) * limit;
@@ -189,8 +182,6 @@ const rating = asyncHandler(async (req, res) => {
   }
 });
 const uploadImages = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  validateMongoDbId(id);
   try {
     const uploader = (path) => cloudinaryUploadImg(path, "images");
     const urls = [];
@@ -198,13 +189,14 @@ const uploadImages = asyncHandler(async (req, res) => {
     for (const file of files) {
       const { path } = file;
       const newpath = await uploader(path);
-      console.log(file);
+  
       urls.push(newpath);
       fs.unlinkSync(path);
     }
     const images = urls.map((file) => {
       return file;
     });
+    console.log(images);
     res.json(images);
   } catch (error) {
     throw new Error(error);

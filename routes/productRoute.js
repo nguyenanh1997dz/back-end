@@ -14,8 +14,8 @@ const { isAdmin, authMiddleware } = require("../middlewares/authMiddleware");
 const router = express.Router();
 const { uploadPhoto, productImgResize } = require("../middlewares/uploadImage");
 router.post("/add", authMiddleware, isAdmin, createProduct);
-router.put(
-  "/upload/:id",
+router.post(
+  "/upload",
   authMiddleware,
   isAdmin,
   uploadPhoto.array("images", 10),

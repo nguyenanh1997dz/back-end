@@ -13,6 +13,6 @@ router.post("/", authMiddleware, isAdmin, createBrand);
 router.put("/:id", authMiddleware, isAdmin, updateBrand);
 router.delete("/:id", authMiddleware, isAdmin, deleteBrand);
 router.get("/:id", getBrand);
-router.get("/", getallBrand);
+router.get("/",authMiddleware, getallBrand);
 
 module.exports = router;

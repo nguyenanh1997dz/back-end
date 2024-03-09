@@ -94,7 +94,6 @@ const logout = asyncHandler(async (req, res) => {
     });
     return res.sendStatus(204);
   }
-  console.log(refreshToken);
   await User.findOneAndUpdate({ refreshToken }, { refreshToken: "" });
   res.clearCookie("refreshToken", {
     httpOnly: true,
@@ -129,7 +128,7 @@ const getallUser = asyncHandler(async (req, res) => {
 //get a single user
 const getaUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  // validateMongoDbId(id);
+  console.log(id);
   try {
     const getaUser = await User.findById(id);
     res.json({

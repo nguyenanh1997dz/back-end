@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler");
 
 const authMiddleware = asyncHandler(async (req, res, next) => {
   let token;
+  console.log(req.headers);
   if (req.headers?.authorization?.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
     try {
@@ -18,6 +19,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
       throw new Error("Not authorized token expired, Please login again");
     }
   } else {
+    console.log("There is no token attached to headers");
     throw new Error("There is no token attached to headers");
   }
 });

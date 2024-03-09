@@ -26,7 +26,7 @@ const uploadPhoto = multer({
   limits: { fileSize: 1000000 },
 });
 
-const productImgResize = async (req, res, next) => {
+const imgResize = async (req, res, next) => {
   if (!req.files) return next();
   await Promise.all(
     req.files.map(async (file) => {
@@ -55,4 +55,4 @@ const blogImgResize = async (req, res, next) => {
   );
   next();
 };
-module.exports = { uploadPhoto, productImgResize, blogImgResize };
+module.exports = { uploadPhoto, imgResize, blogImgResize };
