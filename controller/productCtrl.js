@@ -189,8 +189,7 @@ const rating = asyncHandler(async (req, res) => {
   }
 });
 const uploadImages = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  validateMongoDbId(id);
+  console.log(123);
   try {
     const uploader = (path) => cloudinaryUploadImg(path, "images");
     const urls = [];

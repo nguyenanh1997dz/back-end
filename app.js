@@ -6,11 +6,13 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 var cors = require("cors");
 require("./config/dbConnect");
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
+
 const authRouter = require("./routes/authRoute");
 const productRoute = require("./routes/productRoute");
 const blogRoute = require("./routes/blogRoute");
